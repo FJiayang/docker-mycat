@@ -11,10 +11,12 @@ WORKDIR /usr/local
 RUN wget http://dl.mycat.io/$MYCAT_VERSION/$MYCAT_PKG
 RUN apk update && \
     apk add --no-cache procps && \
+    apk --no-cache add ca-certificates wget && \
+    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.29-r0/glibc-2.29-r0.apk && \
+    apk add glibc-2.29-r0.apk && \
+    rm -rf *.apk && \
     tar -zxf /usr/local/$MYCAT_PKG && \
-    chmod 777 -R /usr/local/mycat && \
-    chmod +x /usr/local/mycat/bin/* && \
-    ls -lna /usr/local/mycat/bin && \
     rm -rf /usr/local/$MYCAT_PKG
 
 VOLUME /usr/local/mycat/conf
