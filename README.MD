@@ -1,6 +1,6 @@
 # Mycat Docker Image
 
-版本：`1.6-RELEASE`
+MyCat 版本：`1.6-RELEASE`
 
 镜像版本号：`1.6`
 
