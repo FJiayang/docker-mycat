@@ -1,1 +1,0 @@
-docker build -t fjy8018/mycat:1.6.6.1 .
