@@ -1,23 +1,21 @@
-FROM openjdk:8u212-jre-alpine
+FROM openjdk:8-jre
 MAINTAINER fjy8018 fjy8018@gmail.com
 
 # Mycat 版本
-ENV MYCAT_VERSION 1.6.6.1
-ENV MYCAT_PKG Mycat-server-"$MYCAT_VERSION"-release-20181031195535-linux.tar.gz
+ENV MYCAT_VERSION 1.6-RELEASE
+ENV MYCAT_PKG Mycat-server-1.6-RELEASE-20161028204710-linux.tar.gz
 
-WORKDIR /
+WORKDIR /usr/local
 # 缓存层
 RUN wget http://dl.mycat.io/$MYCAT_VERSION/$MYCAT_PKG
-RUN tar -zxf /$MYCAT_PKG && \
-    rm -rf /$MYCAT_PKG && \
-    chmod -R 777 /mycat && \
-    chmod +x /mycat/bin/*
+RUN RUN apt-get update && \
+    apt-get install -y procps && \
+    apt-get clean && \
+    tar -zxf /usr/local/$MYCAT_PKG && \
+    rm -rf /usr/local/$MYCAT_PKG
 
-# 配置文件目录 日志文件目录
-VOLUME ["/mycat/conf","/mycat/logs"]
+VOLUME /usr/local/mycat/conf
 
-#ENTRYPOINT ["/mycat/bin/mycat","console"]
-ENTRYPOINT ["/mycat/bin/startup_nowrap.sh"]
-
-# 端口
 EXPOSE 8066 9066
+
+ENTRYPOINT ["/usr/local/mycat/bin/mycat","console"]
