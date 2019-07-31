@@ -8,13 +8,34 @@
 
 对外端口：`8066`，管理端口`9066`
 
-启动命令
+## 如何使用
+
+### 1. 拷贝配置文件
+
+运行临时容器，生成配置文件
+
+```bash
+$ docker run --rm -d --name=mycat fjy8018/mycat:1.6
+```
+
+`/usr/mycat/conf` 是宿主机配置文件目录
+
+```bash
+$ docker cp mycat:/usr/local/mycat/conf /usr/mycat/conf
+```
+
+停止临时容器
+
+```bash
+$ docker stop mycat
+```
+
+挂载配置启动命令
 
 ```bash
 $ docker run --name=mycat -p 3306:8066 -p 9066:9066 \
-    -v /usr/mycat/conf:/mycat/conf \
-    -v /usr/mycat/logs:/mycat/logs \
-    fjy8018/mycat:1.6.6.1
+    -v /usr/mycat/conf:/usr/local/mycat/conf \
+    fjy8018/mycat:1.6
 ```
 
 停止命令
