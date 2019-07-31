@@ -21,7 +21,7 @@ $ docker run --rm -d --name=mycat fjy8018/mycat:1.6
 `/usr/mycat/conf` 是宿主机配置文件目录
 
 ```bash
-$ docker cp mycat:/usr/local/mycat/conf /usr/mycat/conf
+$ docker cp mycat:/usr/local/mycat/conf /usr/mycat
 ```
 
 停止临时容器
